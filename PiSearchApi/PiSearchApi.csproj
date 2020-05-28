@@ -94,6 +94,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\pi-million.txt" />
+    <Content Include="favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="index.css" />
     <Content Include="index.html" />
