@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app_tl" ng-controller="ctrl_tl">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Cache-Control" content="no-store" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-animate.min.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/3.0.0/toaster.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toarrayfilter/1.0.1/toArrayFilter.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/1.0.0-beta.6/angular-moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-inview/2.2.0/angular-inview.min.js"></script>
+	<script src="index.js?v=1.3"></script>
+	<link href="index.css?v=1.3" rel='stylesheet' type='text/css' />
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel='stylesheet'
+		type='text/css' />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css'
+		type='text/css' media='all' />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/3.0.0/toaster.min.css"
+		type='text/css' media='all' />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+</head>
+
+<body class="bg-dark">
+
+	<toaster-container toaster-options="{'time-out': 2500,'close-button': false}"></toaster-container>
+
+	<div class="container h-100">
+
+		<div class="row align-items-center h-100">
+			<div class="col">
+
+				<div id="accordion">
+					<div class="card">
+						<div class="card-header" id="headingOne">
+							<h5 class="mb-0">
+
+
+								<div class="input-group input-group-lg">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-lg"><i
+												class="fa fa-search"></i></span>
+									</div>
+									<input type="text" class="form-control" ng-model="Settings.Pattern" aria-label="Large"
+										aria-describedby="inputGroup-sizing-sm">
+
+									<div class="input-group-append">
+										<button class="btn btn-warning" ng-click="Search();"
+											type="button">&#960</button>
+									</div>
+								</div>
+								<button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne"
+									aria-expanded="false" aria-controls="collapseOne">
+									Advanced options
+								</button>
+							</h5>
+						</div>
+
+						<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+							<div class="card-body">
+
+								<legend class="col-form-label col-sm-2 pt-0">Max. digits to search</legend>
+								<div class="custom-control custom-radio custom-control-inline">
+									<div class="form-check" ng-repeat="c in SizeFilters">
+										<div class="custom-control custom-radio">
+											<input type="radio" id="sizeFilter{{c.label}}"
+												ng-model="Settings.SizeFilter" value="{{c.id}}" name="sizeFilter"
+												class="custom-control-input">
+											<label class="custom-control-label"
+												for="sizeFilter{{c.label}}">{{c.label}}</label>
+										</div>
+									</div>
+								</div>
+
+								<legend class="col-form-label col-sm-2 pt-0">Block size</legend>
+								<div class="custom-control custom-radio custom-control-inline">
+									<div class="form-check" ng-repeat="c in BlockSizes">
+										<div class="custom-control custom-radio">
+											<input type="radio" id="blockFilter{{c.label}}"
+												ng-model="Settings.BlockSize" value="{{c.id}}" name="blockFilter"
+												class="custom-control-input">
+											<label class="custom-control-label"
+												for="blockFilter{{c.label}}">{{c.label}}</label>
+										</div>
+									</div>
+								</div>
+
+								
+								<legend class="col-form-label col-sm-2 pt-0">Parallelism</legend>
+								<div class="custom-control custom-radio custom-control-inline">
+									<div class="form-check" ng-repeat="c in ParallelSizes">
+										<div class="custom-control custom-radio">
+											<input type="radio" id="Parallelism{{c.label}}"
+												ng-model="Settings.Parallelism" value="{{c.id}}" name="Parallelism"
+												class="custom-control-input">
+											<label class="custom-control-label"
+												for="Parallelism{{c.label}}">{{c.label}}</label>
+										</div>
+									</div>
+								</div>
+
+								<legend class="col-form-label col-sm-2 pt-0">Search algorithm</legend>
+								<div class="custom-control custom-radio custom-control-inline">
+									<div class="form-check" ng-repeat="c in SearchAlgorithms">
+										<div class="custom-control custom-radio">
+											<input type="radio" id="SearchAlgorithms{{c.label}}"
+												ng-model="Settings.SearchAlgorithm" value="{{c.id}}" name="SearchAlgorithms"
+												class="custom-control-input">
+											<label class="custom-control-label"
+												for="SearchAlgorithms{{c.label}}">{{c.label}}</label>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+				<hr />
+
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">Searched {{data.Length | number}} digits.</h5>
+						<span class="font-weight-light">...{{data.PrefixingDigits}}<span
+								class="font-weight-bold">{{data.Pattern}}</span>{{data.SuffixingDigits}}...</span>
+						<hr />
+						<h6 class="card-subtitle mb-2 text-muted">First occurs at position: {{data.Position | number}} </h6>
+						<p class="card-text">Execution time: {{data.ExecutionTime}}<span class="font-weight-bold">sec</span></p>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<nav class="navbar fixed-bottom navbar-light bg-dark">
+				<a class="navbar-brand" href="https://www.youtube.com/user/numberphile">Inspired by Numberphile</a>
+			  </nav>
+
+
+	</div>
+
+
+</body>
+
+</html>

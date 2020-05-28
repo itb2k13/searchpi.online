@@ -1,0 +1,20 @@
+html {
+	height: 100%;
+}
+	
+body {
+	height: inherit;
+	display: flex;
+	flex-direction: column;	
+}
+
+#loading-bar .bar {
+	height: 7px !important;
+	background-color: #FFF !important;
+}
+
+#loading-bar-spinner .spinner-icon {
+	border-top-color: #FFFFFF !important;
+	border-left-color: #FFFFFF !important;
+	float: right;
+}
