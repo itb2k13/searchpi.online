@@ -1,20 +1,22 @@
-html {
-	height: 100%;
-}
-	
-body {
-	height: inherit;
-	display: flex;
-	flex-direction: column;	
+﻿html {
+    height: 100%;
 }
 
+body {
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+
 #loading-bar .bar {
-	height: 7px !important;
-	background-color: #FFF !important;
+    height: 7px !important;
+    background-color: #e5a00d !important;
 }
 
 #loading-bar-spinner .spinner-icon {
-	border-top-color: #FFFFFF !important;
-	border-left-color: #FFFFFF !important;
-	float: right;
+    border-top-color: #e5a00d !important;
+    border-left-color: #e5a00d !important;
+    height: 50px !important;
+    width: 50px !important;
 }

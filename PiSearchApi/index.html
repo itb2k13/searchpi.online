@@ -17,6 +17,8 @@
     <meta name="description" content="Search for any string of digits in the first 10 billion digits of Pi" />
     <meta name="keywords" content="Pi, digits, search">
     <meta name="author" content="Stephen Smith">
+    <meta name="yandex-verification" content="fa191c79889782ae" />
+    <meta name="msvalidate.01" content="98811E5EE18B302C4DDE338062F6E150" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="favicon.ico" />
     <title>Search Pi</title>
@@ -50,12 +52,12 @@
 <body class="bg-dark">
     <toaster-container toaster-options="{'time-out': 2500,'close-button': false}"></toaster-container>
     <div class="container h-100">
-        <div class="row align-items-center h-100">
-            <div class="col p-1">
+        <div class="row align-items-center justify-content-center h-100">
+            <div class="col-12 col-md-6 p-1">
                 <div id="accordion">
                     <div class="card">
                         <div class="card-header" id="headingOne">
-                            <h3>Search 10 billion digits of Pi</h3>
+                            <h3 class="font-weight-light">Search 10 billion digits of Pi</h3>
                             <h5 class="mb-0">
                                 <div class="input-group input-group-lg">
                                     <div class="input-group-prepend">
@@ -63,7 +65,7 @@
                                             <i class="fa fa-search"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control" ng-model="Settings.Pattern" aria-label="Large"
+                                    <input type="text" class="form-control" maxlength="20" ng-model="Settings.Pattern" aria-label="Large"
                                            aria-describedby="inputGroup-sizing-sm">
                                     <div class="input-group-append">
                                         <button class="btn btn-warning" ng-click="Search();"
@@ -80,10 +82,10 @@
                         </div>
                         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body">
-                                <legend class="col-form-label col-sm-2 pt-0">Max. digits to search</legend>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <div class="form-check" ng-repeat="c in SizeFilters">
-                                        <div class="custom-control custom-radio">
+                                <legend class="font-weight-light pt-0">Max. digits to search</legend>
+                                <div class="custom-control custom-radio pl-0 custom-control-inline">
+                                    <div class="" ng-repeat="c in SizeFilters">
+                                        <div class="custom-control custom-radio pr-2">
                                             <input type="radio" id="sizeFilter{{c.label}}"
                                                    ng-model="Settings.SizeFilter" value="{{c.id}}" name="sizeFilter"
                                                    class="custom-control-input">
@@ -92,10 +94,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <legend class="col-form-label col-sm-2 pt-0">Block size</legend>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <div class="form-check" ng-repeat="c in BlockSizes">
-                                        <div class="custom-control custom-radio">
+                                <legend class="font-weight-light pt-0">Block size</legend>
+                                <div class="custom-control custom-radio pl-0 custom-control-inline">
+                                    <div class="" ng-repeat="c in BlockSizes">
+                                        <div class="custom-control custom-radio pr-2">
                                             <input type="radio" id="blockFilter{{c.label}}"
                                                    ng-model="Settings.BlockSize" value="{{c.id}}" name="blockFilter"
                                                    class="custom-control-input">
@@ -104,10 +106,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <legend class="col-form-label col-sm-2 pt-0">Parallelism</legend>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <div class="form-check" ng-repeat="c in ParallelSizes">
-                                        <div class="custom-control custom-radio">
+                                <legend class="font-weight-light pt-0">Parallelism</legend>
+                                <div class="custom-control custom-radio pl-0 custom-control-inline">
+                                    <div class="" ng-repeat="c in ParallelSizes">
+                                        <div class="custom-control custom-radio pr-2">
                                             <input type="radio" id="Parallelism{{c.label}}"
                                                    ng-model="Settings.Parallelism" value="{{c.id}}" name="Parallelism"
                                                    class="custom-control-input">
@@ -116,10 +118,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <legend class="col-form-label col-sm-2 pt-0">Search algorithm</legend>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <div class="form-check" ng-repeat="c in SearchAlgorithms">
-                                        <div class="custom-control custom-radio">
+                                <legend class="font-weight-light pt-0">Search algorithm</legend>
+                                <div class="custom-control custom-radio pl-0 custom-control-inline">
+                                    <div class="" ng-repeat="c in SearchAlgorithms">
+                                        <div class="custom-control custom-radio pr-2">
                                             <input type="radio" id="SearchAlgorithms{{c.label}}"
                                                    ng-model="Settings.SearchAlgorithm" value="{{c.id}}" name="SearchAlgorithms"
                                                    class="custom-control-input">
