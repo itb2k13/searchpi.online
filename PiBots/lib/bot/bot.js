@@ -13,21 +13,30 @@ Module.searchPi = async (store, needle, start, end, key) => {
 
             let startTime = Date.now();
 
-            let pi = await store
+            let haystack = await store
                 .getPi(start, end, key)
                 .catch(err => { return reject(err); });
 
             let dataTime = Date.now() - startTime;
 
-            let result = await search.searchText(needle, pi);
+            let result = await search.searchText(needle, haystack);
 
             let searchTime = Date.now() - startTime - dataTime;
+
+            if (result > -1) {
+
+                var digits = await store
+                    .getPi(Math.max(start + result - 15, 0), start + result + needle.length + 15, key)
+                    .catch(err => { return reject(err); });
+
+            }
 
             return resolve({
                 start,
                 end,
                 dataTime,
                 searchTime,
+                digits,
                 position: result > -1 ? (start + result + 1) : -1
             });
         }

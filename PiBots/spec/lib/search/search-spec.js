@@ -41,10 +41,10 @@ describe("Tests the text search.", function () {
         expect(result[0]).toEqual({ start: 500000, end: 599999 });
         expect(result[4]).toEqual({ start: 900000, end: 999999 });
 
-        var result2 = await lib2.getRanges(900000, 100000, 1048576);
+        var result2 = await lib2.getRanges(100000000, 100000000, 100000000 * 2);
 
         expect(result2.length).toEqual(1);
-        expect(result2[0]).toEqual({ start: 900000, end: 999999 });
+        expect(result2[0]).toEqual({ start: 100000000, end: (100000000 * 2) - 1 });
 
 
     });

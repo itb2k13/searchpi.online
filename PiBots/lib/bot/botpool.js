@@ -15,25 +15,23 @@ Module.searchPi = async (store, request) => {
                 .getRanges(request.offset, request.blockSize, request.maxLength)
                 .catch(err => { return reject(err); });
 
-            let results = [];
+            let promises = [];
 
-            for (i = 0; i < ranges.length; i++) {
-
-                if (!results.find(x => x && x.position > -1)) {
-
-                    let result = await bot
-                        .searchPi(store, request.needle, ranges[i].start, ranges[i].end, request.key)
-                        .catch(err => { return reject(err); });
-
-                    results.push(result);
-
-                }
-            }
-
-            return resolve({
-                needle: request.needle,
-                results: results.filter(x => x && x.position > -1)
+            ranges.forEach(range => {
+                promises.push(bot.searchPi(store, request.needle, range.start, range.end, request.key));
             });
+
+            Promise
+                .all(promises)
+                .then(resp => {
+
+                    return resolve({
+                        needle: request.needle,
+                        results: resp.filter(x => x.position > -1)
+                    });
+
+                })
+                .catch(err => { return reject(err); });
 
         }
 
