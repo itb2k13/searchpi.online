@@ -241,3 +241,5 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 PiSearchApi/App_Data/
+*.zip
+PiBots/spec/support/pi_dec_1m.txt
