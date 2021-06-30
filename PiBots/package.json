@@ -1,15 +1,19 @@
 {
-  "name": "pibots",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "aws-sdk": "^2.935.0",
-    "node-fetch": "^2.6.1"
-  }
+    "name": "pibots",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "zip": "compress-archive -path lib -destinationpath xxxx.zip",
+        "deploy:blocksearch": "aws --profile sjs --region us-east-1 --no-cli-pager lambda update-function-code --function-name arn:aws:lambda:us-east-1:095629118679:function:searchpi-online-blocksearch --zip-file fileb://PiBots.zip --publish",
+        "deploy:filesearch": "aws --profile sjs --region us-east-1 --no-cli-pager lambda update-function-code --function-name arn:aws:lambda:us-east-1:095629118679:function:searchpi-online-filesearch --zip-file fileb://PiBots.zip --publish",
+        "deploy": "npm run deploy:blocksearch && npm run deploy:filesearch"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "aws-sdk": "^2.935.0",
+        "node-fetch": "^2.6.1"
+    }
 }

@@ -1,49 +1,13 @@
-const byterange = require('../search/byterange');
+const payload = require('./payloads');
 const http = require('./http');
 
 let Module = {}
 
-Module.getPayloads = async (request) => {
+Module.searchPi = async (request, config) => {
 
     return new Promise(async (resolve, reject) => {
 
-        if (!request) return reject(new Error('Cannot create block ranges. Request object is null/undefined.'));
-
-        let ranges = await byterange
-            .getRanges(0, request.blockSize, request.maxLength)
-            .catch(err => {
-                return reject(err);
-            });
-
-        if (!ranges || ranges.length === 0) return reject(new Error('Cannot create block ranges.'));
-        else {
-
-            let payloads = ranges.map(range => {
-
-                return {
-
-                    needle: request.needle,
-                    offset: range.start,
-                    blockSize: request.blockSize,
-                    maxLength: range.start + request.blockSize,
-                    key: request.key
-
-                };
-
-            });
-
-            resolve(payloads);
-
-        }
-
-    });
-}
-
-Module.searchPi = async (request) => {
-
-    return new Promise(async (resolve, reject) => {
-
-        let payloads = await Module
+        let payloads = await payload
             .getPayloads(request)
             .catch(err => {
                 return reject(err);
@@ -55,17 +19,16 @@ Module.searchPi = async (request) => {
             let promises = [];
 
             payloads.forEach(payload => {
-                promises.push(http.post('https://lpcoaz6k04.execute-api.us-east-1.amazonaws.com/default/searchpi-online-blocksearch', payload));
+                promises.push(http.post(config.blockSearchApi, payload));
             });
 
             Promise
                 .all(promises)
                 .then(resp => {
 
-                    return resolve({
-                        needle: request.needle,
-                        results: resp.map(x => x.results).flat()
-                    });
+                    return resolve(
+                        resp.map(x => x.results || x.error).flat()
+                    );
 
                 })
                 .catch(err => { return reject(err); });

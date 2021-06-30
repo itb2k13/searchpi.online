@@ -1,4 +1,4 @@
-const lib = require("../../../lib/http/httppool");
+const lib = require("../../../lib/http/payloads");
 
 describe("Tests the HTTP pool agent.", function () {
 

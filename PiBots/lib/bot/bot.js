@@ -26,18 +26,22 @@ Module.searchPi = async (store, needle, start, end, key) => {
             if (result > -1) {
 
                 var digits = await store
-                    .getPi(Math.max(start + result - 15, 0), start + result + needle.length + 15, key)
+                    .getPi(Math.max(start + result - 20, 0), start + result + needle.length + 20, key)
                     .catch(err => { return reject(err); });
 
             }
 
+            let position = result > -1 ? (start + result - 1) : -1;
+
             return resolve({
+                needle,
                 start,
                 end,
                 dataTime,
                 searchTime,
                 digits,
-                position: result > -1 ? (start + result + 1) : -1
+                position,
+                positionToString: position.toLocaleString()
             });
         }
 
