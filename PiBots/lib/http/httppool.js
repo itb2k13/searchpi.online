@@ -7,6 +7,8 @@ Module.getPayloads = async (request) => {
 
     return new Promise(async (resolve, reject) => {
 
+        if (!request) return reject(new Error('Cannot create block ranges. Request object is null/undefined.'));
+
         let ranges = await byterange
             .getRanges(0, request.blockSize, request.maxLength)
             .catch(err => {

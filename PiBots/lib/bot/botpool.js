@@ -7,7 +7,7 @@ Module.searchPi = async (store, request) => {
 
     return new Promise(async (resolve, reject) => {
 
-        if (!store) reject(new Error('Cannot search Pi. Must supply store interface.'));
+        if (!store) return reject(new Error('Cannot search Pi. Must supply store interface.'));
         else if (!request.needle) return reject(new Error('Cannot search Pi. Needle must be specified.'));
         else {
 
@@ -16,6 +16,8 @@ Module.searchPi = async (store, request) => {
                 .catch(err => { return reject(err); });
 
             let promises = [];
+
+            if (!ranges || ranges.lenth === 0) return;
 
             ranges.forEach(range => {
                 promises.push(bot.searchPi(store, request.needle, range.start, range.end, request.key));
@@ -27,7 +29,7 @@ Module.searchPi = async (store, request) => {
 
                     return resolve({
                         needle: request.needle,
-                        results: resp.filter(x => x.position > -1)
+                        results: resp.filter(x => x && x.position > -1)
                     });
 
                 })

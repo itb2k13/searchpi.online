@@ -7,20 +7,26 @@ Module.getPi = async (start, end, key) => {
 
     return new Promise(async (resolve, reject) => {
 
-        s3.getObject({
+        if (!key) return reject(new Error('Cannot getObject() from S3. Must supply a Key (fileName).'))
+        else if (start > end) return reject(new Error('Cannot getObject() from S3. Must supply a valid <start> and <end> byte range to obtain.'))
+        else {
 
-            Bucket: 'searchpi.online',
-            Key: key,
-            Range: `bytes=${start}-${end}`
+            s3.getObject({
 
-        }, (err, data) => {
+                Bucket: 'searchpi.online',
+                Key: key,
+                Range: `bytes=${start}-${end}`
 
-            if (err)
-                return reject(err);
-            else
-                return resolve(data.Body.toString('utf-8'));
+            }, (err, data) => {
 
-        });
+                if (err)
+                    return reject(err);
+                else
+                    return resolve(data.Body.toString('utf-8'));
+
+            });
+
+        }
 
     });
 
