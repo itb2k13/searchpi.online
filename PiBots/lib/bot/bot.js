@@ -25,9 +25,17 @@ Module.searchPi = async (store, needle, start, end, key) => {
 
             if (result > -1) {
 
+                var prefix = 20;
+
                 var digits = await store
-                    .getPi(Math.max(start + result - 20, 0), start + result + needle.length + 20, key)
+                    .getPi(Math.max(start + result - prefix, 0), start + result + needle.length + prefix, key)
                     .catch(err => { return reject(err); });
+
+                var i = await search.searchText(needle, digits);
+
+                var prefixingDigits = digits.substring(0, i);
+
+                var suffixingDigits = digits.substring(i + needle.length);
 
             }
 
@@ -39,7 +47,10 @@ Module.searchPi = async (store, needle, start, end, key) => {
                 end,
                 dataTime,
                 searchTime,
+                executionTime: dataTime + searchTime,
                 digits,
+                prefixingDigits,
+                suffixingDigits,
                 position,
                 positionToString: position.toLocaleString()
             });
