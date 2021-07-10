@@ -23,8 +23,8 @@ Module.getPayloads = async (request) => {
 
                     needle: request.needle,
                     offset: range.start,
-                    blockSize: request.blockSize,
-                    maxLength: range.start + request.blockSize,
+                    blockSize: parseInt(request.blockSize),
+                    maxLength: range.start + parseInt(request.blockSize),
                     key: request.key
 
                 };

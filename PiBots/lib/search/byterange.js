@@ -10,8 +10,8 @@ Module.getRanges = async (offset = 0, blockSize, maxLength) => {
 
             let result = [];
 
-            for (var i = offset; (i + blockSize) <= (maxLength); i += blockSize) {
-                result.push({ start: i, end: (i + blockSize) - 1 });
+            for (var i = offset; (i + parseInt(blockSize)) <= (parseInt(maxLength)); i += parseInt(blockSize)) {
+                result.push({ start: i, end: (i + parseInt(blockSize)) - 1 });
             }
 
             resolve(result);
