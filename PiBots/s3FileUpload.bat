@@ -1,0 +1,1 @@
+aws --profile sjs s3 cp pi-10billion.txt s3://searchpi.online
