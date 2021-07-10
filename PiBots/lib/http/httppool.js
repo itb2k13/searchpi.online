@@ -17,6 +17,7 @@ Module.searchPi = async (request, config) => {
         else {
 
             let promises = [];
+            let startTime = Date.now();
 
             payloads.forEach(payload => {
                 promises.push(http.post(config.blockSearchApi, payload));
@@ -26,9 +27,19 @@ Module.searchPi = async (request, config) => {
                 .all(promises)
                 .then(resp => {
 
-                    return resolve(
-                        resp.map(x => x.results || x.error).flat()
-                    );
+                    let results = resp.map(x => x.results || x.error).flat();
+                    let totalDigits = payloads.length * request.blockSize;
+                    let executionTime = (Date.now() - startTime) / 1000;
+                    let topResult = results.find(x => x && x.position > -1);
+
+                    return resolve({
+                        summary: {
+                            executionTime,
+                            totalDigits,
+                            topResult: topResult || null
+                        },
+                        results
+                    });
 
                 })
                 .catch(err => { return reject(err); });

@@ -28,8 +28,7 @@ Module.searchPi = async (store, request) => {
                 .then(resp => {
 
                     return resolve({
-                        needle: request.needle,
-                        results: resp.filter(x => x && x.position > -1)
+                        results: resp
                     });
 
                 })
